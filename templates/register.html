@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse-RentApp Web</title>
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/auth.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -33,11 +33,11 @@
 
                     <div class="input-box">
                         <label for="confirmPassword">Confirmar Contraseña</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <input type="password" id="confirm-password" name="confirmPassword" required>
                         <i class='bx bxs-lock-alt'></i>
                     </div>
 
-                    <button type="submit" class="btn">Registrarse</button>
+                    <button type="button" id="register-btn" class="btn">Registrarse</button>
 
                     <div class="register-link">
                         <p>¿Ya tienes una cuenta? <a href="./login.html">Inicia Sesión</a></p>
@@ -46,6 +46,8 @@
             </form>
         </div>
     </div>
+
+    <script type="module" src="../controllers/auth/register.js"></script>
 </body>
 
 </html>
