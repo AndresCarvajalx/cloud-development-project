@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     bikes.forEach((bike) => {
       let bikeData = bike.data();
       carouselTrack.innerHTML += `
-        <a href="/Templates/bicicleta-montana.html" class="carousel-slide">
+        <a href="./templates/details.html" class="carousel-slide">
             <div class="carousel-content">
             <img src="./resources/images/bike.png" alt="bicicleta">
                     <h3>${bikeData.bikeName}</h3>
