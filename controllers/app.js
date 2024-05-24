@@ -3,6 +3,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
 // https://firebase.google.com/docs/web/setup#available-libraries
 // https://www.gstatic.com/firebasejs/10.12.1/firebase-SERVICE.js
@@ -19,8 +21,10 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+export const authState = (user) => onAuthStateChanged(auth, user);
 
 export const createUser = (email, password) =>
   createUserWithEmailAndPassword(auth, email, password);
 export const signIn = (email, password) =>
   signInWithEmailAndPassword(auth, email, password);
+export const signOutSession = () => signOut(auth); 
