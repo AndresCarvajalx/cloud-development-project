@@ -17,7 +17,7 @@
     <main>
         <section class="producto">
             <div class="producto-imagen">
-                <img src="../resources/imgini.png" alt="Bicicleta de Montaña">
+                <img src="../resources/images/imgini.png" alt="Bicicleta de Montaña">
             </div>
             
             <div class="producto-detalles">
@@ -74,19 +74,19 @@
             <h2>Productos Similares</h2>
             <div class="otras-bicicletas-container">
                 <a href="./templates/producto.html" class="bicicleta-item">
-                    <img src="./resources/imgini.png" alt="Bicicleta 1">
+                    <img src="../resources/images/imgini.png" alt="Bicicleta 1">
                     <h3>Bicicleta de Ciudad</h3>
                     <p>Precio: $300</p>
                 </a>
 
                 <a href="./templates/producto.html" class="bicicleta-item">
-                    <img src="./resources/imgini.png" alt="Bicicleta 2">
+                    <img src="../resources/images/imgini.png" alt="Bicicleta 2">
                     <h3>Bicicleta de Carretera</h3>
                     <p>Precio: $700</p>
                 </a>
 
                 <a href="./templates/producto.html" class="bicicleta-item">
-                    <img src="./resources/imgini.png" alt="Bicicleta 3">
+                    <img src="../resources/images/imgini.png" alt="Bicicleta 3">
                     <h3>Bicicleta Eléctrica</h3>
                     <p>Precio: $1000</p>
                 </a>
@@ -109,7 +109,7 @@
             const bikeDoc = await getOwnerBikes(ownerId);
             if (bikeDoc.exists()) {
                 const bikeData = bikeDoc.data();
-                document.querySelector('.producto-imagen img').src = bikeData.picture || "../resources/imgini.png";
+                document.querySelector('.producto-imagen img').src = bikeData.picture || "../resources/images/imgini.png";
                 document.querySelector('.producto-detalles h2').innerText = bikeData.bikeName;
                 document.querySelector('.producto-detalles .precio').innerText = `$${bikeData.pricePerDay}`;
                 document.querySelector('.fabricante').innerText = `Fabricante: ${bikeData.manufacturer || "Desconocido"}`;
