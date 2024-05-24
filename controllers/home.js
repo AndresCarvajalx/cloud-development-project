@@ -1,8 +1,10 @@
+import { authState } from "./app.js";
 import { addBikeData, getAllBikes } from "./db/database.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const catalogoContainer = document.getElementById("catalogo-container");
   const carouselTrack = document.getElementById("carousel-track");
+  const profileSection = document.getElementById("profile-section");
 
   await getAllBikes().then((bikes) => {
     bikes.forEach((bike) => {
@@ -60,5 +62,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const currentSlide = track.querySelector(".current-slide") || slides[0];
     const nextSlide = currentSlide.nextElementSibling || slides[0];
     moveToSlide(track, currentSlide, nextSlide);
+  });
+
+  await authState((user) => {
+    if (user) {
+      profileSection.innerHTML = `
+        <a href="./templates/profile.html" class="register-link">Ir a perfil</a>
+      `;
+    } else {
+      profileSection.innerHTML = `
+        <a href="./templates/register.html" class="register-link">Registro | Iniciar Sesión</a>
+      `;
+    }
   });
 });
