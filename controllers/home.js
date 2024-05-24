@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       carouselTrack.innerHTML += `
         <a href="./templates/details.html?bikeId=${bikeId}" class="carousel-slide">
             <div class="carousel-content">
-                <img src="./resources/images/bike.png" alt="bicicleta">
+                <img src="${bikeData.picture && bikeData.picture.trim() !== "" ? bikeData.picture : "../resources/images/imgini.png"}" alt="bicicleta">
                 <h3>${bikeData.bikeName}</h3>
                 <h4>Descripcion: ${bikeData.description}</h4>
                 <h5>precio hora: ${bikeData.pricePerHour}</h5>
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       `;
       catalogoContainer.innerHTML += `
         <a href="./templates/details.html?bikeId=${bikeId}" class="catalogo-item">
-            <img src="./resources/images/bike.png" alt="bicicleta">
+            <img src="${bikeData.picture && bikeData.picture.trim() !== "" ? bikeData.picture : "../resources/images/imgini.png"}" alt="bicicleta">
             <h3>${bikeData.bikeName}</h3>
             <h4>Descripcion: ${bikeData.description}</h4>
             <h5>precio hora: ${bikeData.pricePerHour}</h5>
