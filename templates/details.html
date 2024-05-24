@@ -71,24 +71,8 @@
 
         <section class="otras-bicicletas">
             <h2>Productos Similares</h2>
-            <div class="otras-bicicletas-container">
-                <a href="./templates/producto.html" class="bicicleta-item">
-                    <img src="../resources/images/imgini.png" alt="Bicicleta 1">
-                    <h3>Bicicleta de Ciudad</h3>
-                    <p>Precio: $300</p>
-                </a>
-
-                <a href="./templates/producto.html" class="bicicleta-item">
-                    <img src="../resources/images/imgini.png" alt="Bicicleta 2">
-                    <h3>Bicicleta de Carretera</h3>
-                    <p>Precio: $700</p>
-                </a>
-
-                <a href="./templates/producto.html" class="bicicleta-item">
-                    <img src="../resources/images/imgini.png" alt="Bicicleta 3">
-                    <h3>Bicicleta Eléctrica</h3>
-                    <p>Precio: $1000</p>
-                </a>
+            <div class="otras-bicicletas-container" id="similar-products-container">
+                <!-- Productos similares se cargarán aquí -->
             </div>
         </section>
     </main>
@@ -98,63 +82,71 @@
     </footer>
 
     <script type="module">
-    import { getBikeById } from "../controllers/db/database.js";
-
-    document.addEventListener('DOMContentLoaded', async () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const bikeId = urlParams.get('bikeId');
-
-        if (bikeId) {
-            const bikeDoc = await getBikeById(bikeId);
-            if (bikeDoc.exists()) {
-                const bikeData = bikeDoc.data();
-                document.querySelector('.producto-imagen img').src = bikeData.picture && bikeData.picture.trim() !== "" ? bikeData.picture : "../resources/images/imgini.png";
-                document.querySelector('.producto-detalles h2').innerText = bikeData.bikeName;
-                document.querySelector('.producto-detalles .precio').innerText = `$${bikeData.pricePerDay}`;
-                document.querySelector('.fabricante').innerText = `Dueño: ${bikeData.ownerName || "Desconocido."}`;
-
-                // Populate technical specifications
-                const specsTable = document.querySelector('.especificaciones table');
-                specsTable.innerHTML = `
-                    <tr>
-                        <th>Característica</th>
-                        <th>Detalle</th>
-                    </tr>
-                    <tr>
-                        <td>Material del marco</td>
-                        <td>${bikeData.frameMaterial || "Desconocido"}</td>
-                    </tr>
-                    <tr>
-                        <td>Tamaño de la rueda</td>
-                        <td>${bikeData.wheelSize || "Desconocido"}</td>
-                    </tr>
-                    <tr>
-                        <td>Suspensión</td>
-                        <td>${bikeData.suspension || "Desconocido"}</td>
-                    </tr>
-                    <tr>
-                        <td>Frenos</td>
-                        <td>${bikeData.brakes || "Desconocidos"}</td>
-                    </tr>
-                    <tr>
-                        <td>Cambios</td>
-                        <td>${bikeData.gears || "Desconocidos"}</td>
-                    </tr>
-                `;
+        import { getBikeById, getRandomBikes } from "../controllers/db/database.js";
+    
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bikeId = urlParams.get('bikeId');
+    
+            if (bikeId) {
+                const bikeDoc = await getBikeById(bikeId);
+                if (bikeDoc.exists()) {
+                    const bikeData = bikeDoc.data();
+                    document.querySelector('.producto-imagen img').src = bikeData.picture || "../resources/images/imgini.png";
+                    document.querySelector('.producto-detalles h2').innerText = bikeData.bikeName;
+                    document.querySelector('.producto-detalles .precio').innerText = `$${bikeData.pricePerDay}`;
+                    document.querySelector('.fabricante').innerText = `Propietario: ${bikeData.username || "Desconocido."}`;
+    
+                    // Populate technical specifications
+                    const specsTable = document.querySelector('.especificaciones table');
+                    specsTable.innerHTML = `
+                        <tr>
+                            <th>Característica</th>
+                            <th>Detalle</th>
+                        </tr>
+                        <tr>
+                            <td>Material del marco</td>
+                            <td>${bikeData.frameMaterial || "Desconocido"}</td>
+                        </tr>
+                        <tr>
+                            <td>Tamaño de la rueda</td>
+                            <td>${bikeData.wheelSize || "Desconocido"}</td>
+                        </tr>
+                        <tr>
+                            <td>Suspensión</td>
+                            <td>${bikeData.suspension || "Desconocido"}</td>
+                        </tr>
+                        <tr>
+                            <td>Frenos</td>
+                            <td>${bikeData.brakes || "Desconocidos"}</td>
+                        </tr>
+                        <tr>
+                            <td>Cambios</td>
+                            <td>${bikeData.changes || "Desconocidos"}</td>
+                        </tr>
+                    `;
+    
+                    // Load similar products
+                    const similarProducts = await getRandomBikes(bikeId);
+                    const similarProductsContainer = document.getElementById('similar-products-container');
+                    similarProducts.forEach(bike => {
+                        const bikeItem = document.createElement('a');
+                        bikeItem.href = `./details.html?bikeId=${bike.id}`;
+                        bikeItem.classList.add('bicicleta-item');
+                        bikeItem.innerHTML = `
+                            <img src="${bike.picture || '../resources/images/imgini.png'}" alt="${bike.bikeName}">
+                            <h3>${bike.bikeName}</h3>
+                            <p>Precio: $${bike.pricePerDay}</p>
+                        `;
+                        similarProductsContainer.appendChild(bikeItem);
+                    });
+                } else {
+                    console.error("No bike found for the given bikeId.");
+                }
             } else {
-                console.error("No bike found for the given ownerId.");
+                console.error("No bikeId provided in URL.");
             }
-        } else {
-            console.error("No ownerId provided in URL.");
-        }
-    });
-</script>
-</body>
-</html>
-
-
-
-
-
-
-
+        });
+        </script>
+    </body>
+    </html>

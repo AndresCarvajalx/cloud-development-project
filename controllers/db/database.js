@@ -8,6 +8,8 @@ import {
   getDocs,
   query,
   getDoc,
+  limit, 
+  where
 } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
 
 const COLLECTION_BIKES = "bikes";
@@ -60,3 +62,14 @@ export const deleteDocument = (bikeId) =>
   deleteDoc(doc(db, COLLECTION_BIKES, bikeId));
 export const deleteDocumentFromOwner = (ownerId, bikeId) =>
   deleteDoc(doc(db, COLLECTION_OWNER, ownerId, COLLECTION_BIKES, bikeId));
+
+export const getRandomBikes = async (currentBikeId, numBikes = 3) => {
+  const bikesRef = collection(db, COLLECTION_BIKES);
+  const q = query(bikesRef, where("id", "!=", currentBikeId), limit(numBikes));
+  const querySnapshot = await getDocs(q);
+  let bikes = [];
+  querySnapshot.forEach((doc) => {
+      bikes.push({ id: doc.id, ...doc.data() });
+  });
+  return bikes;
+};
