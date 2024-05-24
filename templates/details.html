@@ -109,7 +109,7 @@
             const bikeDoc = await getOwnerBikes(ownerId);
             if (bikeDoc.exists()) {
                 const bikeData = bikeDoc.data();
-                document.querySelector('.producto-imagen img').src = "../resources/images/imgini.png" //bikeData.picture || "../resources/images/imgini.png";
+                document.querySelector('.producto-imagen img').src = bikeData.picture || "../resources/images/imgini.png";
                 document.querySelector('.producto-detalles h2').innerText = bikeData.bikeName;
                 document.querySelector('.producto-detalles .precio').innerText = `$${bikeData.pricePerDay}`;
                 document.querySelector('.fabricante').innerText = `Fabricante: ${bikeData.manufacturer || "Desconocido"}`;
