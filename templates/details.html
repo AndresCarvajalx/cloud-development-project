@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bicicleta de Montaña</title>
-    <link rel="stylesheet" href="./styles/producto.css">
+    <link rel="stylesheet" href="../styles/producto.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -17,7 +17,7 @@
     <main>
         <section class="producto">
             <div class="producto-imagen">
-                <img src="/Resources/imgini.png" alt="Bicicleta de Montaña">
+                <img src="../resources/imgini.png" alt="Bicicleta de Montaña">
             </div>
             
             <div class="producto-detalles">
@@ -34,8 +34,8 @@
                 <p class="fabricante">Fabricante: Maxxis</p>
                 <div class="renta-protegida">
                     <h3>Renta Protegida</h3>
-                    <a href="/renta-protegida.html">Seguros</a>
-                    <a href="/renta-protegida.html">Política de Protección</a>
+                    <a href="./renta-protegida.html">Seguros</a>
+                    <a href="./renta-protegida.html">Política de Protección</a>
                 </div>
             </div>
         </section>
@@ -73,20 +73,20 @@
         <section class="otras-bicicletas">
             <h2>Productos Similares</h2>
             <div class="otras-bicicletas-container">
-                <a href="/Templates/producto.html" class="bicicleta-item">
-                    <img src="/Resources/imgini.png" alt="Bicicleta 1">
+                <a href="./templates/producto.html" class="bicicleta-item">
+                    <img src="./resources/imgini.png" alt="Bicicleta 1">
                     <h3>Bicicleta de Ciudad</h3>
                     <p>Precio: $300</p>
                 </a>
 
-                <a href="/Templates/producto.html" class="bicicleta-item">
-                    <img src="/Resources/imgini.png" alt="Bicicleta 2">
+                <a href="./templates/producto.html" class="bicicleta-item">
+                    <img src="./resources/imgini.png" alt="Bicicleta 2">
                     <h3>Bicicleta de Carretera</h3>
                     <p>Precio: $700</p>
                 </a>
 
-                <a href="/Templates/producto.html" class="bicicleta-item">
-                    <img src="/Resources/imgini.png" alt="Bicicleta 3">
+                <a href="./templates/producto.html" class="bicicleta-item">
+                    <img src="./resources/imgini.png" alt="Bicicleta 3">
                     <h3>Bicicleta Eléctrica</h3>
                     <p>Precio: $1000</p>
                 </a>
@@ -99,7 +99,7 @@
     </footer>
 
     <script type="module">
-    import { getOwnerBikes } from "./db/database.js";
+    import { getOwnerBikes } from "../controllers/db/database.js";
 
     document.addEventListener('DOMContentLoaded', async () => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -109,7 +109,7 @@
             const bikeDoc = await getOwnerBikes(ownerId);
             if (bikeDoc.exists()) {
                 const bikeData = bikeDoc.data();
-                document.querySelector('.producto-imagen img').src = bikeData.picture || "/Resources/imgini.png";
+                document.querySelector('.producto-imagen img').src = bikeData.picture || "../resources/imgini.png";
                 document.querySelector('.producto-detalles h2').innerText = bikeData.bikeName;
                 document.querySelector('.producto-detalles .precio').innerText = `$${bikeData.pricePerDay}`;
                 document.querySelector('.fabricante').innerText = `Fabricante: ${bikeData.manufacturer || "Desconocido"}`;
