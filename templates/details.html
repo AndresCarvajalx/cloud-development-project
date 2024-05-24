@@ -111,7 +111,7 @@
                 document.querySelector('.producto-imagen img').src = bikeData.picture && bikeData.picture.trim() !== "" ? bikeData.picture : "../resources/images/imgini.png";
                 document.querySelector('.producto-detalles h2').innerText = bikeData.bikeName;
                 document.querySelector('.producto-detalles .precio').innerText = `$${bikeData.pricePerDay}`;
-                document.querySelector('.fabricante').innerText = `Dueño: ${bikeData.username || "Desconocido."}`;
+                document.querySelector('.fabricante').innerText = `Dueño: ${bikeData.ownerName || "Desconocido."}`;
 
                 // Populate technical specifications
                 const specsTable = document.querySelector('.especificaciones table');
@@ -138,7 +138,7 @@
                     </tr>
                     <tr>
                         <td>Cambios</td>
-                        <td>${bikeData.changes || "Desconocidos"}</td>
+                        <td>${bikeData.gears || "Desconocidos"}</td>
                     </tr>
                 `;
             } else {

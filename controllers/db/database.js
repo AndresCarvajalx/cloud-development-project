@@ -38,12 +38,12 @@ export const addBikeData = async (
     pricePerWeek,
     description,
     picture,
-    username,
+    ownerName,
     frameMaterial,
     wheelSize,
     suspension,
     brakes,
-    changes
+    gears
   });
 
 export const getOwnerBikes = (ownerId) =>
