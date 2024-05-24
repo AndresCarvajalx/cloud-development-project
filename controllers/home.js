@@ -7,28 +7,29 @@ document.addEventListener("DOMContentLoaded", async () => {
   await getAllBikes().then((bikes) => {
     bikes.forEach((bike) => {
       let bikeData = bike.data();
+      let ownerId = bike.id; // Assuming the ownerId is the document ID
       carouselTrack.innerHTML += `
-        <a href="./templates/details.html" class="carousel-slide">
+        <a href="./templates/details.html?ownerId=${ownerId}" class="carousel-slide">
             <div class="carousel-content">
-            <img src="./resources/images/bike.png" alt="bicicleta">
-                    <h3>${bikeData.bikeName}</h3>
-                    <h4>Descripcion: ${bikeData.description} </h4>
-                    <h5>precio hora: ${bikeData.pricePerHour}</h5>
-                    <h5>precio dia: ${bikeData.pricePerDay}</h5>
-                    <h5>precio semana: ${bikeData.pricePerWeek}</h5>
+                <img src="./resources/images/bike.png" alt="bicicleta">
+                <h3>${bikeData.bikeName}</h3>
+                <h4>Descripcion: ${bikeData.description}</h4>
+                <h5>precio hora: ${bikeData.pricePerHour}</h5>
+                <h5>precio dia: ${bikeData.pricePerDay}</h5>
+                <h5>precio semana: ${bikeData.pricePerWeek}</h5>
             </div>
         </a>
       `;
       catalogoContainer.innerHTML += `
-                <a class="catalogo-item">
-                    <img src="./resources/images/bike.png" alt="bicicleta">
-                    <h3>${bikeData.bikeName}</h3>
-                    <h4>Descripcion: ${bikeData.description} </h4>
-                    <h5>precio hora: ${bikeData.pricePerHour}</h5>
-                    <h5>precio dia: ${bikeData.pricePerDay}</h5>
-                    <h5>precio semana: ${bikeData.pricePerWeek}</h5>
-                </a>
-            `;
+        <a href="./templates/details.html?ownerId=${ownerId}" class="catalogo-item">
+            <img src="./resources/images/bike.png" alt="bicicleta">
+            <h3>${bikeData.bikeName}</h3>
+            <h4>Descripcion: ${bikeData.description}</h4>
+            <h5>precio hora: ${bikeData.pricePerHour}</h5>
+            <h5>precio dia: ${bikeData.pricePerDay}</h5>
+            <h5>precio semana: ${bikeData.pricePerWeek}</h5>
+        </a>
+      `;
     });
   });
   const track = document.querySelector(".carousel-track");

@@ -1,3 +1,4 @@
+//details.html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +11,7 @@
 <body>
     <header>
         <h1>Rentapp</h1>
-        <a href="/Templates/carrito.html" class="cart-button"><i class='bx bx-cart'></i> Carrito (<span id="cart-count">0</span>)</a>
+        <a href="/templates/carrito.html" class="cart-button"><i class='bx bx-cart'></i> Carrito (<span id="cart-count">0</span>)</a>
     </header>
 
     <main>
@@ -97,23 +98,58 @@
         <p>&copy; 2024 Rentapp</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            let cartCount = 0;
-            
-            // Retrieve cart count from localStorage
-            if (localStorage.getItem('cartCount')) {
-                cartCount = parseInt(localStorage.getItem('cartCount'));
-                document.getElementById('cart-count').innerText = cartCount;
-            }
+    <script type="module">
+    import { getOwnerBikes } from "./db/database.js";
 
-            document.getElementById('btnaddcar').addEventListener('click', () => {
-                cartCount++;
-                localStorage.setItem('cartCount', cartCount);
-                document.getElementById('cart-count').innerText = cartCount;
-            });
-        });
-    </script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const ownerId = urlParams.get('ownerId');
+
+        if (ownerId) {
+            const bikeDoc = await getOwnerBikes(ownerId);
+            if (bikeDoc.exists()) {
+                const bikeData = bikeDoc.data();
+                document.querySelector('.producto-imagen img').src = bikeData.picture || "/Resources/imgini.png";
+                document.querySelector('.producto-detalles h2').innerText = bikeData.bikeName;
+                document.querySelector('.producto-detalles .precio').innerText = `$${bikeData.pricePerDay}`;
+                document.querySelector('.fabricante').innerText = `Fabricante: ${bikeData.manufacturer || "Desconocido"}`;
+
+                // Populate technical specifications
+                const specsTable = document.querySelector('.especificaciones table');
+                specsTable.innerHTML = `
+                    <tr>
+                        <th>Característica</th>
+                        <th>Detalle</th>
+                    </tr>
+                    <tr>
+                        <td>Material del marco</td>
+                        <td>${bikeData.frameMaterial || "Desconocido"}</td>
+                    </tr>
+                    <tr>
+                        <td>Tamaño de la rueda</td>
+                        <td>${bikeData.wheelSize || "Desconocido"}</td>
+                    </tr>
+                    <tr>
+                        <td>Suspensión</td>
+                        <td>${bikeData.suspension || "Desconocido"}</td>
+                    </tr>
+                    <tr>
+                        <td>Frenos</td>
+                        <td>${bikeData.brakes || "Desconocido"}</td>
+                    </tr>
+                    <tr>
+                        <td>Cambios</td>
+                        <td>${bikeData.gears || "Desconocido"}</td>
+                    </tr>
+                `;
+            } else {
+                console.error("No bike found for the given ownerId.");
+            }
+        } else {
+            console.error("No ownerId provided in URL.");
+        }
+    });
+</script>
 </body>
 </html>
 
