@@ -21,7 +21,13 @@ export const addBikeData = async (
   pricePerDay,
   pricePerWeek,
   description,
-  picture
+  picture,
+  Username,
+  FrameMaterial,
+  WheelSize,
+  Suspension,
+  Brakes,
+  Changes
 ) =>
   await setDoc(doc(collection(db, COLLECTION_NAME), ownerId), {
     ownerId,
@@ -31,6 +37,12 @@ export const addBikeData = async (
     pricePerWeek,
     description,
     picture,
+    username,
+    frameMaterial,
+    wheelSize,
+    suspension,
+    brakes,
+    changes
   });
 
 export const getOwnerBikes = (ownerId) => getDoc(doc(db, COLLECTION_NAME, ownerId));
