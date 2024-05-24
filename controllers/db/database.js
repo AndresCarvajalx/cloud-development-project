@@ -48,6 +48,7 @@ export const addBikeData = async (
 
 export const getOwnerBikes = (ownerId) =>
   getDoc(doc(db, COLLECTION_OWNER, ownerId));
+
 export const getBikeById = (bikeId) =>
   getDoc(doc(db, COLLECTION_BIKES, bikeId));
 

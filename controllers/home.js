@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   await getAllBikes().then((bikes) => {
     bikes.forEach((bike) => {
       let bikeData = bike.data();
-      let ownerId = bike.id; // Assuming the ownerId is the document ID
+      let bikeId = bike.id; 
       carouselTrack.innerHTML += `
-        <a href="./templates/details.html?ownerId=${ownerId}" class="carousel-slide">
+        <a href="./templates/details.html?bikeId=${bikeId}" class="carousel-slide">
             <div class="carousel-content">
                 <img src="./resources/images/bike.png" alt="bicicleta">
                 <h3>${bikeData.bikeName}</h3>
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         </a>
       `;
       catalogoContainer.innerHTML += `
-        <a href="./templates/details.html?ownerId=${ownerId}" class="catalogo-item">
+        <a href="./templates/details.html?bikeId=${bikeId}" class="catalogo-item">
             <img src="./resources/images/bike.png" alt="bicicleta">
             <h3>${bikeData.bikeName}</h3>
             <h4>Descripcion: ${bikeData.description}</h4>

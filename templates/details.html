@@ -99,14 +99,14 @@
     </footer>
 
     <script type="module">
-    import { getOwnerBikes } from "../controllers/db/database.js";
+    import { getBikeById } from "../controllers/db/database.js";
 
     document.addEventListener('DOMContentLoaded', async () => {
         const urlParams = new URLSearchParams(window.location.search);
-        const ownerId = urlParams.get('ownerId');
+        const bikeId = urlParams.get('bikeId');
 
-        if (ownerId) {
-            const bikeDoc = await getOwnerBikes(ownerId);
+        if (bikeId) {
+            const bikeDoc = await getBikeById(bikeId);
             if (bikeDoc.exists()) {
                 const bikeData = bikeDoc.data();
                 document.querySelector('.producto-imagen img').src = bikeData.picture || "../resources/images/imgini.png";
