@@ -84,10 +84,27 @@
     <script type="module">
         import { getBikeById, getRandomBikes } from "../controllers/db/database.js";
     
+        const updateCartCount = () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').innerText = cart.length;
+        };
+
+        const addToCart = (bikeId) => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (!cart.includes(bikeId)) {
+                cart.push(bikeId);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+            } else {
+                alert("Esta bicicleta ya está en el carrito.");
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', async () => {
+            updateCartCount();
             const urlParams = new URLSearchParams(window.location.search);
             const bikeId = urlParams.get('bikeId');
-    
+
             if (bikeId) {
                 const bikeDoc = await getBikeById(bikeId);
                 if (bikeDoc.exists()) {
@@ -96,7 +113,7 @@
                     document.querySelector('.producto-detalles h2').innerText = bikeData.bikeName;
                     document.querySelector('.producto-detalles .precio').innerText = `$${bikeData.pricePerDay}`;
                     document.querySelector('.fabricante').innerText = `Propietario: ${bikeData.username || "Desconocido."}`;
-    
+
                     // Populate technical specifications
                     const specsTable = document.querySelector('.especificaciones table');
                     specsTable.innerHTML = `
@@ -125,7 +142,7 @@
                             <td>${bikeData.changes || "Desconocidos"}</td>
                         </tr>
                     `;
-    
+
                     // Load similar products
                     const similarProducts = await getRandomBikes(bikeId);
                     const similarProductsContainer = document.getElementById('similar-products-container');
@@ -140,6 +157,9 @@
                         `;
                         similarProductsContainer.appendChild(bikeItem);
                     });
+
+                    // Add event listener to add to cart button
+                    document.getElementById('btnaddcar').addEventListener('click', () => addToCart(bikeId));
                 } else {
                     console.error("No bike found for the given bikeId.");
                 }
@@ -147,6 +167,6 @@
                 console.error("No bikeId provided in URL.");
             }
         });
-        </script>
-    </body>
-    </html>
+    </script>
+</body>
+</html>
