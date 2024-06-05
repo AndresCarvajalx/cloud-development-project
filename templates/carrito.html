@@ -56,7 +56,7 @@
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                 </select>
-                                <button class="remove-button" onclick="removeProduct(this, '${bikeId}')">Eliminar</button>
+                                <button class="remove-button" onclick="removeProduct('${bikeId}')">Eliminar</button>
                             </div>
                         </div>
                     `;
@@ -79,8 +79,8 @@
             document.getElementById('totalPrice').textContent = totalPrice.toFixed(2);
         }
 
-        function removeProduct(button, bikeId) {
-            const product = button.closest('.product');
+        function removeProduct(bikeId) {
+            const product = document.querySelector(`.product[data-id="${bikeId}"]`);
             product.remove();
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart = cart.filter(id => id !== bikeId);
