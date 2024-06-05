@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar/Actualizar Bicicleta</title>
+    <link rel="stylesheet" href="/Styles/formulario.css">
+</head>
+<body>
+    <header>
+        <h1>Bicicletas</h1>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <form id="bikeForm">
+                <label for="bikeId">ID (para actualizar):</label>
+                <input type="text" id="bikeId" name="bikeId" readonly>
+
+                <label for="bikeName">Nombre:</label>
+                <input type="text" id="bikeName" name="bikeName" required>
+
+                <label for="bikePrice">Precio:</label>
+                <input type="number" id="bikePrice" name="bikePrice" required>
+
+                <label for="bikeImage">Imagen:</label>
+                <input type="file" id="bikeImage" name="bikeImage" accept="image/*" required>
+
+                <label for="bikeDescription">Descripción:</label>
+                <textarea id="bikeDescription" name="bikeDescription" rows="4" required></textarea>
+
+                <label for="bikematerial">Material:</label>
+                <input type="text" id="bikematerial" name="bikeName" required>
+
+                <label for="bikesize">Tamaño de rueda:</label>
+                <input type="text" id="bikesize" name="bikeName" required>
+
+                <button type="submit" class="btn">Guardar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Rentapp</p>
+    </footer>
+
+    <script src="form.js"></script>
+</body>
+</html>
