@@ -92,6 +92,8 @@
             window.location.href = 'metodospay.html';
         }
 
+        window.removeProduct = removeProduct; // Expose removeProduct to global scope
+
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('rentButton').addEventListener('click', redirectToPayment);
             loadCartItems();
